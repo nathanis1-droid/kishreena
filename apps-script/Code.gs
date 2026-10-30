@@ -14,6 +14,11 @@
  */
 
 const NOTIFY_EMAIL = ''; // optional: where concern alerts go. Blank = the Sheet owner.
+const SHEET_ID = ''; // optional: the Sheet's ID, if this script isn't attached to the Sheet.
+
+function book_() {
+  return SpreadsheetApp.getActive() || SpreadsheetApp.openById(SHEET_ID);
+}
 
 const LOG_HEADERS = ['Logged at', 'Mentor email', 'Mentor name', 'Mentee first name', 'Call',
                      'Call date', 'Minutes', 'Happened?', 'Her next step', 'Concern'];
@@ -21,7 +26,7 @@ const CALLS = ['Intro call (30 min)', 'Session 1', 'Session 2', 'Session 3', 'Wr
 const HAPPENED = ['Yes', 'Rescheduled', "She didn't join", "I couldn't join"];
 
 function setup() {
-  const ss = SpreadsheetApp.getActive();
+  const ss = book_();
 
   const mentors = getOrCreate_(ss, 'Mentors');
   if (mentors.getLastRow() === 0) {
@@ -86,7 +91,7 @@ function findMentor_(email, code) {
   email = String(email || '').trim().toLowerCase();
   code = String(code || '').trim();
   if (!email || !code) return null;
-  const rows = SpreadsheetApp.getActive().getSheetByName('Mentors').getDataRange().getValues().slice(1);
+  const rows = book_().getSheetByName('Mentors').getDataRange().getValues().slice(1);
   for (const r of rows) {
     const active = String(r[3] || 'Y').trim().toUpperCase() !== 'N';
     if (active && String(r[0]).trim().toLowerCase() === email && String(r[2]).trim() === code) {
@@ -111,7 +116,7 @@ function logSession_(mentor, entry) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    SpreadsheetApp.getActive().getSheetByName('Logs').appendRow([
+    book_().getSheetByName('Logs').appendRow([
       new Date(), mentor.email, mentor.name, mentee, call, date, minutes, happened, nextStep, concern
     ]);
   } finally {
@@ -128,7 +133,7 @@ function logSession_(mentor, entry) {
 }
 
 function listFor_(email) {
-  const rows = SpreadsheetApp.getActive().getSheetByName('Logs').getDataRange().getValues().slice(1);
+  const rows = book_().getSheetByName('Logs').getDataRange().getValues().slice(1);
   const mine = rows.filter(r => String(r[1]).toLowerCase() === email).map(r => ({
     mentee: r[3], call: r[4],
     date: r[5] instanceof Date ? Utilities.formatDate(r[5], 'GMT', 'yyyy-MM-dd') : String(r[5]),
