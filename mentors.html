@@ -45,6 +45,10 @@
     .card { background: var(--blush); border-radius: 18px; padding: 30px 26px; border: 1px solid rgba(181,72,90,0.1); }
     .card h3 { font-family: "Cormorant Garamond", serif; font-size: 25px; font-weight: 600; margin-bottom: 10px; }
     .card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .acts { list-style: none; } .acts li { font-size: 14px; color: #5a4a40; line-height: 1.6; padding: 5px 0 5px 18px; position: relative; }
+    .acts li::before { content: "•"; color: var(--rose); position: absolute; left: 2px; }
+    .any-track { margin-top: 20px; background: var(--blush); border-radius: 14px; padding: 16px 22px; font-size: 14px; color: #5a4a40; }
+    .any-track strong { color: var(--rose); }
 
     .dark { background: var(--dark); }
     .dark .label { color: var(--gold-light); }
@@ -146,12 +150,14 @@
 <section style="background:var(--warm-white);">
   <div class="container">
     <span class="label">Three Tracks</span>
-    <h2 class="title">She picks one.<br/>You pick yours.</h2>
-    <p class="subtitle">Each mentee chooses one track before she's matched. You choose the tracks you're comfortable with, and you'll only be shortlisted for mentees on those tracks.</p>
+    <h2 class="title">She picks a track.<br/>You pick what you'll do.</h2>
+    <p class="subtitle">Each mentee chooses one track and up to 3 things she wants help with. You tick up to 5 things you can do in a session, and we shortlist you for mentees whose picks match yours.</p>
     <div class="grid3">
-      <div class="card"><h3>Land my first job</h3><p>Resume, interviews and applying for roles. Session work might be a resume review or a mock interview.</p></div>
-      <div class="card"><h3>Study further</h3><p>A master's in India or abroad. Session work might be shortlisting programmes or improving her statement of purpose.</p></div>
-      <div class="card"><h3>Explore a career</h3><p>What a career is really like, day to day. Session work might be walking her through real work from your job.</p></div>
+      <div class="card"><h3>Land my first job</h3><ul class="acts"><li>Resume / CV review</li><li>LinkedIn profile review</li><li>Mock interview</li><li>Job search plan</li><li>First-job confidence</li></ul></div>
+      <div class="card"><h3>Study further</h3><ul class="acts"><li>Programme shortlist</li><li>Statement of purpose review</li><li>Scholarships &amp; funding</li><li>Applying abroad: tests, timelines</li></ul></div>
+      <div class="card"><h3>Explore a career</h3><ul class="acts"><li>A day in my job</li><li>Choosing between paths</li><li>Starting a business / idea feedback</li><li>Project or portfolio review</li></ul></div>
+    </div>
+    <p class="any-track"><strong>Any track:</strong> Networking &amp; writing to professionals · Speaking &amp; communication practice · Confidence &amp; self-belief</p>
     </div>
   </div>
 </section>
